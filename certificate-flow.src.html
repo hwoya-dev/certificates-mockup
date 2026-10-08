@@ -88,6 +88,9 @@ h1:focus, h2:focus { outline: none; }
   background: var(--surface); border-radius: var(--r);
   padding: 44px 34px; box-shadow: 0 10px 20px rgba(0,0,0,.5);
 }
+/* artwork runs edge to edge across the top of the form card */
+.card.has-hero { overflow: hidden; }
+.hero { display: block; width: calc(100% + 68px); max-width: none; height: auto; margin: -44px -34px 34px; }
 .card.narrow { max-width: 700px; margin-inline: auto; text-align: center; padding: 54px 42px; }
 
 h1 { font-family: var(--display); font-weight: 400; font-size: 36px; line-height: 1.15; letter-spacing: .5px; text-wrap: balance; margin-bottom: 10px; }
@@ -307,7 +310,7 @@ a.tel { color: var(--ink); text-decoration: none; white-space: nowrap; }
 .cert-sheet { display: grid; gap: 16px; }
 .cert-page { container-type: inline-size; background: #fff; color: #15171a; border-radius: 4px; overflow: hidden; font-family: var(--body); font-weight: 400; }
 .cert-front img { display: block; width: 100%; height: auto; }
-.cert-back { aspect-ratio: 1000 / 514; padding: 4.9cqw 4.6cqw 3.1cqw; display: flex; flex-direction: column; }
+.cert-back { aspect-ratio: 1400 / 665; padding: 4.9cqw 4.6cqw 3.1cqw; display: flex; flex-direction: column; }
 .cert-back .hello { text-align: center; font-weight: 700; font-size: 2.3cqw; margin-bottom: 2.4cqw; }
 .cert-back .body { text-align: center; font-size: 2.05cqw; line-height: 1.75; color: #2a2d33; }
 .cert-back .body b { font-weight: 700; }
@@ -320,9 +323,7 @@ a.tel { color: var(--ink); text-decoration: none; white-space: nowrap; }
 .cert-org img { width: 14.8cqw; height: auto; display: block; max-width: none; }
 .cert-org .addr { font-size: 1.22cqw; line-height: 1.55; }
 .cert-org .addr b { display: block; font-weight: 700; letter-spacing: .02em; }
-.cert-id { display: flex; align-items: flex-end; gap: 1.7cqw; text-align: right; }
-.cert-id .qr { width: 8.9cqw; height: 8.9cqw; flex-shrink: 0; }
-.cert-id .qr img, .cert-id .qr canvas { width: 100% !important; height: 100% !important; }
+.cert-id { text-align: right; }
 .cert-id .num { font-size: 1.86cqw; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .cert-id .val { font-size: 1.29cqw; color: #6d7480; margin-top: .4cqw; white-space: nowrap; }
 .zoom-hint { display: none; font-size: 12.5px; color: var(--ink-3); text-align: center; margin-top: 10px; }
@@ -394,6 +395,7 @@ a.tel { color: var(--ink); text-decoration: none; white-space: nowrap; }
   .step-sep { flex-basis: 10px; }
 
   .card { padding: 26px 18px; }
+  .hero { width: calc(100% + 36px); margin: -26px -18px 24px; }
   .card.narrow { padding: 34px 20px; }
   h1 { font-size: 27px; }
   h2 { font-size: 24px; }
@@ -469,7 +471,8 @@ a.tel { color: var(--ink); text-decoration: none; white-space: nowrap; }
 
   <!-- ══════════ 1. FORM ══════════ -->
   <section id="s-form">
-    <div class="card">
+    <div class="card has-hero">
+      <img class="hero" id="heroImg" src="__FRONT__" width="1400" height="665" alt="Иллюстрация с подарочного сертификата HWOYA Philosophy">
       <h1>Электронный подарочный сертификат</h1>
       <p class="lede">Оформите за пару минут. Сертификат придёт на электронную почту сразу после оплаты и будет действовать год со дня покупки.</p>
 
@@ -749,7 +752,7 @@ a.tel { color: var(--ink); text-decoration: none; white-space: nowrap; }
     <div class="modal-body">
       <div class="cert-zoom" id="certZoom">
         <div class="cert-sheet">
-          <div class="cert-page cert-front"><img src="__FRONT__" alt="Лицевая сторона сертификата HWOYA Philosophy"></div>
+          <div class="cert-page cert-front"><img id="certFront" width="1400" height="665" alt="Лицевая сторона сертификата HWOYA Philosophy"></div>
           <div class="cert-page">
             <div class="cert-back">
               <div class="hello">Добро пожаловать в HWOYA Philosophy!</div>
@@ -768,7 +771,6 @@ a.tel { color: var(--ink); text-decoration: none; white-space: nowrap; }
                   </div>
                 </div>
                 <div class="cert-id">
-                  <div class="qr" id="certQr"></div>
                   <div>
                     <div class="num" id="cbNum">№ —</div>
                     <div class="val">действителен до <span id="cbValid">—</span></div>
@@ -782,7 +784,7 @@ a.tel { color: var(--ink); text-decoration: none; white-space: nowrap; }
       <p class="zoom-hint" id="zoomHint">Нажмите на сертификат, чтобы увеличить</p>
       <div class="demo-note" style="margin:16px 0 0">
         <span class="tag">Пояснение к прототипу</span>
-        Две страницы PDF: лицевая с иллюстрацией и оборот с номиналом, номером, QR-кодом и сроком действия. Номер подставляется после выпуска ваучера в TNG. В QR зашиты только цифры номера: букву «Э» многие сканеры читают ненадёжно, формат кода нужно согласовать с TNG.
+        Две страницы PDF: лицевая с иллюстрацией и оборот с номиналом, номером и сроком действия. Номер подставляется после выпуска ваучера в TNG.
       </div>
     </div>
   </div>
@@ -811,7 +813,7 @@ a.tel { color: var(--ink); text-decoration: none; white-space: nowrap; }
             <div class="v" id="mlNum">—</div>
             <div class="s">Номинал <span id="mlAmt">—</span> · действителен до <span id="mlValid">—</span></div>
           </div>
-          <p>Назовите номер на ресепшене или покажите QR-код из вложения. Сертификатом можно пользоваться несколько раз, пока не израсходован номинал.</p>
+          <p>Назовите номер на ресепшене или покажите сертификат из вложения. Сертификатом можно пользоваться несколько раз, пока не израсходован номинал.</p>
           <div class="mail-attach"><span class="pdf">PDF</span><span>Сертификат <span id="mlFile">—</span>.pdf</span></div>
           <div class="mail-foot">
             Термальный спа-комплекс HWOYA Philosophy<br>
@@ -874,7 +876,6 @@ a.tel { color: var(--ink); text-decoration: none; white-space: nowrap; }
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 (function () {
   'use strict';
@@ -1228,18 +1229,7 @@ a.tel { color: var(--ink); text-decoration: none; white-space: nowrap; }
     $('cbMsg').hidden = !(isGift() && msg);
     $('cbMsg').textContent = msg ? '«' + msg + '»' : '';
 
-    var box = $('certQr');
-    box.textContent = '';
-    box.removeAttribute('style');
-    if (window.QRCode) {
-      try {
-        /* digits only: the library fails on Cyrillic, and so do many desk scanners */
-        new QRCode(box, { text: n.replace(/[^ -~]/g, ''), width: 160, height: 160, correctLevel: QRCode.CorrectLevel.M });
-        return;
-      } catch (err) { /* fall through to the placeholder */ }
-    }
-    box.style.cssText = 'border:1px solid #d8dce2;display:grid;place-items:center;font-size:1.3cqw;color:#8b919b';
-    box.textContent = 'QR';
+    if (!$('certFront').getAttribute('src')) $('certFront').src = $('heroImg').src;
   }
   function fillMail() {
     if (!state.certNum) state.certNum = newCertNum();
