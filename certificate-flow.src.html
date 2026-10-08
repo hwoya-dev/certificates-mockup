@@ -1,0 +1,1369 @@
+<title>Сертификаты HWOYA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Forum&family=Jost:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: one centred column of full-screen "states"; a prototype rail on top,
+   a scenario console pinned bottom-right (a bottom sheet on phones). Tokens are
+   lifted verbatim from the existing hwoyaspa.ru form blocks so the mockup
+   matches the live site. */
+:root {
+  color-scheme: dark;
+
+  /* brand palette, from the live cert-cert-electro form */
+  --surface:      #1c282a;
+  --sunken:       #121b1d;
+  --page:         #0c1314;
+  --accent:       #299b82;
+  --accent-hi:    #239378;
+  --accent-lite:  #36b998;
+  --line:         #4b5563;
+  --ink:          #ffffff;
+  --ink-2:        #c0c0c0;
+  --ink-3:        #9ca3af;
+  --ink-4:        #6b7280;
+  --danger:       #ff6b6b;
+
+  /* prototype chrome, deliberately outside the brand palette */
+  --proto-bg:     #171a21;
+  --proto-line:   #2b3038;
+  --proto-ink:    #8b94a3;
+  --proto-hi:     #d6a84f;
+
+  --r: 9px;
+  --display: 'Forum', Georgia, serif;
+  --body: 'Jost', 'Segoe UI', system-ui, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--body);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+:focus-visible { outline: 2px solid var(--accent-lite); outline-offset: 2px; }
+h1:focus, h2:focus { outline: none; }
+
+/* ───────────── prototype rail ───────────── */
+.proto-rail {
+  background: var(--proto-bg);
+  border-bottom: 1px solid var(--proto-line);
+  padding-block: 10px;
+  padding-inline: 16px;
+}
+.proto-rail-in {
+  max-width: 1000px; margin: 0 auto;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px;
+  font-size: 12.5px; line-height: 1.5; color: var(--proto-ink); letter-spacing: .02em;
+}
+.proto-tag {
+  font-weight: 500; color: var(--proto-hi);
+  text-transform: uppercase; letter-spacing: .09em; font-size: 11px;
+  border: 1px solid color-mix(in srgb, var(--proto-hi) 40%, transparent);
+  border-radius: 3px; padding: 2px 7px;
+}
+
+/* ───────────── shell ───────────── */
+.shell { max-width: 1000px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 140px; }
+
+.stepper { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+.step { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-4); white-space: nowrap; }
+.step .dot {
+  width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+  border: 1px solid var(--line); display: grid; place-items: center;
+  font-size: 11.5px; font-variant-numeric: tabular-nums; color: var(--ink-4);
+}
+.step.on { color: var(--ink); }
+.step.on .dot { background: var(--accent); border-color: var(--accent); color: #fff; }
+.step.done .dot { border-color: var(--accent); color: var(--accent-lite); }
+.step.done { color: var(--ink-2); }
+.step-sep { flex: 1 1 18px; height: 1px; background: var(--proto-line); min-width: 12px; }
+
+.card {
+  background: var(--surface); border-radius: var(--r);
+  padding: 44px 34px; box-shadow: 0 10px 20px rgba(0,0,0,.5);
+}
+.card.narrow { max-width: 700px; margin-inline: auto; text-align: center; padding: 54px 42px; }
+
+h1 { font-family: var(--display); font-weight: 400; font-size: 36px; line-height: 1.15; letter-spacing: .5px; text-wrap: balance; margin-bottom: 10px; }
+h2 { font-family: var(--display); font-weight: 400; font-size: 30px; line-height: 1.2; text-wrap: balance; }
+.lede { font-size: 16px; color: var(--ink-2); line-height: 1.6; margin-bottom: 34px; max-width: 62ch; }
+
+.field { margin-bottom: 22px; }
+.field.tight { margin-bottom: 14px; }
+label.lab { font-family: var(--display); color: var(--ink); font-size: 17px; display: block; margin-bottom: 8px; line-height: 1.5; }
+.req { color: var(--danger); margin-left: 3px; }
+.hint { color: var(--ink-3); font-size: 13.5px; margin-top: 6px; display: block; line-height: 1.5; }
+.note { color: var(--ink-2); font-size: 15px; line-height: 1.6; margin-bottom: 14px; }
+
+input[type=text], input[type=tel], input[type=email], textarea {
+  width: 100%; padding: 14px 16px;
+  background: var(--sunken); color: var(--ink);
+  border: 1px solid var(--line); border-radius: var(--r);
+  font-size: 16px; font-family: var(--body); font-weight: 400;
+  transition: border-color .25s ease, box-shadow .25s ease;
+}
+textarea { resize: vertical; min-height: 84px; line-height: 1.55; }
+input:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+input::placeholder, textarea::placeholder { color: var(--ink-4); }
+input.bad, textarea.bad { border-color: var(--danger); }
+
+.err { color: var(--danger); font-size: 13.5px; margin-top: 6px; font-weight: 400; line-height: 1.5; }
+.fix { color: var(--ink-2); font-size: 13.5px; margin-top: 6px; line-height: 1.6; overflow-wrap: anywhere; }
+.fix b { color: var(--ink); font-weight: 500; }
+.fixbtn {
+  background: none; border: none; color: var(--accent-lite); cursor: pointer;
+  font: inherit; text-decoration: underline; padding: 4px 0; margin-left: 4px;
+}
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+/* amount chooser */
+.amounts { display: flex; flex-wrap: wrap; gap: 10px; }
+.amt {
+  padding: 14px 24px; background: var(--sunken); color: var(--ink);
+  border: 1px solid var(--line); border-radius: var(--r); cursor: pointer;
+  font-size: 17px; font-family: var(--display); transition: all .25s ease;
+  min-width: 104px; font-variant-numeric: tabular-nums;
+}
+.amt:hover:not(.on) { background: var(--surface); border-color: var(--accent); }
+.amt.on { background: var(--accent); border-color: var(--accent); }
+.amt.wide { min-width: 215px; }
+
+.custom-wrap { margin-top: 14px; }
+.custom-in { position: relative; }
+.custom-in input { padding-right: 46px; font-variant-numeric: tabular-nums; }
+.custom-in .cur { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--ink-3); font-size: 16px; pointer-events: none; }
+
+/* gift switch */
+.switch-row {
+  display: flex; align-items: flex-start; gap: 14px;
+  background: var(--sunken); border: 1px solid var(--line); border-radius: var(--r);
+  padding: 16px 18px; margin-bottom: 22px; cursor: pointer;
+}
+.switch-row:has(input:checked) { border-color: var(--accent); }
+.switch { position: relative; width: 44px; height: 25px; flex-shrink: 0; margin-top: 1px; }
+.switch input { position: absolute; opacity: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.switch .track { position: absolute; inset: 0; background: #2c3a3d; border-radius: 99px; transition: background .25s ease; pointer-events: none; }
+.switch .knob { position: absolute; top: 3px; left: 3px; width: 19px; height: 19px; border-radius: 50%; background: var(--ink-3); transition: transform .25s ease, background .25s ease; pointer-events: none; }
+.switch input:checked ~ .track { background: var(--accent); }
+.switch input:checked ~ .knob { transform: translateX(19px); background: #fff; }
+.switch input:focus-visible ~ .track { box-shadow: 0 0 0 2px var(--accent-lite); }
+.switch-txt { font-family: var(--display); font-size: 17px; line-height: 1.45; }
+.switch-txt span { display: block; font-family: var(--body); font-size: 13.5px; color: var(--ink-3); margin-top: 3px; }
+
+.gift-panel { border-left: 2px solid var(--accent); padding-left: 20px; margin-bottom: 22px; }
+.counter { text-align: right; font-size: 12.5px; color: var(--ink-4); margin-top: 5px; font-variant-numeric: tabular-nums; }
+
+/* summary */
+.summary { background: var(--sunken); border: 1px solid var(--line); border-radius: var(--r); padding: 20px 22px; margin-bottom: 24px; }
+.sum-line { display: flex; justify-content: space-between; gap: 16px; padding: 7px 0; font-size: 15px; color: var(--ink-2); line-height: 1.45; }
+.sum-line span { min-width: 0; }
+.sum-line b.nw { white-space: nowrap; flex-shrink: 0; }
+.sum-line b { color: var(--ink); font-weight: 400; text-align: right; font-variant-numeric: tabular-nums; min-width: 0; overflow-wrap: anywhere; }
+.sum-total { border-top: 1px solid var(--line); margin-top: 9px; padding-top: 14px; font-family: var(--display); font-size: 21px; color: var(--ink); align-items: baseline; }
+.sum-total b { font-size: 25px; color: var(--accent-lite); }
+
+/* consents */
+.consents { display: grid; gap: 11px; margin-top: 4px; }
+.cbx { display: flex; align-items: flex-start; gap: 11px; }
+.cbx input { margin-top: 3px; width: 17px; height: 17px; accent-color: var(--accent); flex-shrink: 0; cursor: pointer; }
+.cbx label { color: var(--ink-2); font-size: 14.5px; line-height: 1.55; cursor: pointer; }
+.cbx.bad label { color: var(--danger); }
+.cbx a { color: var(--accent); text-decoration: underline; }
+.cbx a:hover { color: var(--accent-lite); }
+
+/* buttons */
+.btn {
+  padding: 16px 40px; background: var(--accent); color: #fff; border: none;
+  border-radius: var(--r); cursor: pointer; font-size: 19px; font-family: var(--display);
+  letter-spacing: .5px; transition: background .25s ease; font-variant-numeric: tabular-nums;
+}
+.btn:hover { background: var(--accent-hi); }
+.btn.ghost { background: transparent; border: 1px solid var(--line); color: var(--ink-2); }
+.btn.ghost:hover { border-color: var(--accent); color: var(--ink); background: transparent; }
+.btn.sm { font-size: 16px; padding: 12px 26px; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 8px; }
+.pay-row { text-align: center; margin: 28px 0 22px; }
+.linkbtn {
+  background: none; border: none; color: var(--ink-3); cursor: pointer;
+  font-family: var(--body); font-size: 14.5px; text-decoration: underline;
+  text-underline-offset: 3px; padding: 12px 8px; margin-top: 14px;
+}
+.linkbtn:hover { color: var(--ink); }
+
+/* status screens */
+.badge-ico { width: 84px; height: 84px; border-radius: 50%; display: grid; place-items: center; margin: 0 auto 26px; font-size: 42px; color: #fff; }
+.badge-ico.ok { background: var(--accent); }
+.badge-ico.no { background: var(--danger); }
+.status-msg { color: var(--ink-2); font-size: 17.5px; line-height: 1.75; margin-bottom: 26px; overflow-wrap: anywhere; }
+.status-msg strong { color: var(--ink); font-weight: 400; }
+.status-msg + .status-msg { margin-top: -12px; }
+a.tel { color: var(--ink); text-decoration: none; white-space: nowrap; }
+
+.certno {
+  display: inline-block; background: var(--sunken); border: 1px dashed var(--accent);
+  border-radius: var(--r); padding: 14px 28px; margin-bottom: 26px; max-width: 100%;
+}
+.certno span { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .11em; color: var(--ink-3); margin-bottom: 5px; }
+.certno b { font-family: var(--display); font-size: 29px; font-weight: 400; color: var(--accent-lite); letter-spacing: 1.5px; font-variant-numeric: tabular-nums; }
+.certno small { display: block; font-size: 13px; color: var(--ink-3); margin-top: 6px; font-variant-numeric: tabular-nums; }
+
+/* processing checklist */
+.spinner {
+  width: 30px; height: 30px; border-radius: 50%; margin: 0 auto 22px;
+  border: 2px solid var(--accent); border-top-color: transparent; animation: spin .7s linear infinite;
+}
+.checklist { display: grid; gap: 2px; text-align: left; max-width: 460px; margin: 0 auto 10px; }
+.chk { display: flex; align-items: center; gap: 14px; padding: 13px 0; font-size: 16px; color: var(--ink-4); transition: color .3s ease; line-height: 1.4; }
+.chk + .chk { border-top: 1px solid rgba(75,85,99,.35); }
+.chk .mark {
+  width: 25px; height: 25px; border-radius: 50%; flex-shrink: 0;
+  border: 1px solid var(--line); display: grid; place-items: center; font-size: 13px;
+  transition: background .3s ease, border-color .3s ease;
+}
+.chk.run { color: var(--ink); }
+.chk.run .mark { border-color: var(--accent); border-top-color: transparent; animation: spin .7s linear infinite; }
+.chk.ok { color: var(--ink-2); }
+.chk.ok .mark { background: var(--accent); border-color: var(--accent); color: #fff; }
+.chk.no { color: var(--danger); }
+.chk.no .mark { background: var(--danger); border-color: var(--danger); color: #fff; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .chk.run .mark, .spinner { animation: none; border-top-color: var(--accent); }
+}
+
+/* demo annotation, never shown to a real guest */
+.demo-note {
+  background: rgba(214,168,79,.07); border: 1px dashed rgba(214,168,79,.5);
+  border-radius: var(--r); padding: 14px 16px; font-size: 13.5px; color: var(--ink-3);
+  line-height: 1.65; text-align: left; margin-bottom: 24px;
+}
+.demo-note .tag {
+  display: block; font-size: 10px; text-transform: uppercase; letter-spacing: .1em;
+  color: var(--proto-hi); margin-bottom: 6px; font-weight: 500;
+}
+.demo-note b { color: var(--ink-2); font-weight: 500; }
+.refund-note {
+  background: rgba(41,155,130,.1); border: 1px solid rgba(41,155,130,.5);
+  border-radius: var(--r); padding: 15px 18px; font-size: 14.5px; color: var(--ink-2);
+  line-height: 1.6; text-align: left; margin-bottom: 24px;
+}
+.refund-note b { color: var(--accent-lite); font-weight: 500; }
+
+/* ───────────── bank page (light, deliberately not our brand) ───────────── */
+.bank {
+  max-width: 460px; margin-inline: auto; background: #f6f7f9; color: #15171a;
+  border-radius: 14px; overflow: hidden; box-shadow: 0 18px 44px rgba(0,0,0,.55);
+  font-family: var(--body);
+}
+.bank-head { background: #fff; border-bottom: 1px solid #e3e6ea; padding: 16px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 4px 12px; }
+.bank-brand { font-weight: 700; font-size: 15px; letter-spacing: .01em; }
+.bank-secure { font-size: 11.5px; color: #6d7480; }
+.bank-body { padding: 24px; }
+.bank-amt { text-align: center; margin-bottom: 20px; }
+.bank-amt .v { font-size: 34px; font-weight: 500; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.bank-amt .m { font-size: 12.5px; color: #6d7480; margin-top: 4px; }
+.bank-f { margin-bottom: 13px; }
+.bank-f .l { display: block; font-size: 12px; color: #6d7480; margin-bottom: 5px; }
+.bank-f .box {
+  background: #fff; border: 1px solid #d8dce2; border-radius: 8px; padding: 12px 14px;
+  font-size: 15px; color: #a7aeb8; font-variant-numeric: tabular-nums; overflow-wrap: anywhere;
+}
+.bank-g { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+.bank-note { font-size: 11.5px; color: #8b919b; text-align: center; margin-top: 16px; line-height: 1.5; }
+.bank-sim { background: #fffbe9; border-top: 1px solid #efe3b8; padding: 15px 24px 18px; }
+.bank-sim p { font-size: 11px; text-transform: uppercase; letter-spacing: .09em; color: #96813f; margin-bottom: 11px; font-weight: 500; }
+.bank-sim .btns { display: grid; gap: 9px; }
+.bank-btn { padding: 14px; border-radius: 8px; border: none; cursor: pointer; font-size: 15px; font-family: var(--body); font-weight: 500; transition: filter .2s ease; }
+.bank-btn:hover { filter: brightness(.94); }
+.bank-btn.pay { background: #1b1d21; color: #ffdd2d; }
+.bank-btn.decline { background: #fff; color: #b4443f; border: 1px solid #e4c3c1; }
+.bank-btn.back { background: transparent; color: #8b919b; font-size: 13px; padding: 8px; }
+
+/* ───────────── modals ───────────── */
+.overlay {
+  position: fixed; inset: 0; background: rgba(4,8,9,.86);
+  display: grid; place-items: start center; overflow-y: auto; z-index: 60;
+  padding: 24px 16px calc(24px + env(safe-area-inset-bottom, 0px));
+}
+.modal { width: 100%; max-width: 760px; background: var(--surface); border-radius: var(--r); box-shadow: 0 24px 60px rgba(0,0,0,.6); }
+.modal-head {
+  display: flex; justify-content: space-between; align-items: center; gap: 14px;
+  padding: 16px 22px; border-bottom: 1px solid var(--line);
+  position: sticky; top: 0; z-index: 2; background: var(--surface); border-radius: var(--r) var(--r) 0 0;
+}
+.modal-head h3 { font-family: var(--display); font-weight: 400; font-size: 20px; }
+.x { background: none; border: 1px solid var(--line); color: var(--ink-2); width: 36px; height: 36px; border-radius: 6px; cursor: pointer; font-size: 17px; line-height: 1; flex-shrink: 0; }
+.x:hover { border-color: var(--accent); color: var(--ink); }
+.modal-body { padding: 22px; }
+
+/* certificate render: every size is in cqw so the sheet scales like a real PDF page */
+.cert-zoom { overflow: auto; border-radius: 4px; -webkit-overflow-scrolling: touch; }
+.cert-sheet { display: grid; gap: 16px; }
+.cert-page { container-type: inline-size; background: #fff; color: #15171a; border-radius: 4px; overflow: hidden; font-family: var(--body); font-weight: 400; }
+.cert-front img { display: block; width: 100%; height: auto; }
+.cert-back { aspect-ratio: 1000 / 514; padding: 4.9cqw 4.6cqw 3.1cqw; display: flex; flex-direction: column; }
+.cert-back .hello { text-align: center; font-weight: 700; font-size: 2.3cqw; margin-bottom: 2.4cqw; }
+.cert-back .body { text-align: center; font-size: 2.05cqw; line-height: 1.75; color: #2a2d33; }
+.cert-back .body b { font-weight: 700; }
+.cert-back .gift-msg {
+  margin: 2.2cqw auto 0; max-width: 78cqw; text-align: center; font-style: italic; font-size: 1.9cqw;
+  color: #3d4149; line-height: 1.6; border-top: 1px solid #e6e8ec; padding-top: 1.9cqw; overflow-wrap: anywhere;
+}
+.cert-foot { margin-top: auto; padding-top: 2.6cqw; display: flex; justify-content: space-between; align-items: flex-end; gap: 2.5cqw; }
+.cert-org { display: flex; align-items: flex-end; gap: 1.7cqw; }
+.cert-org img { width: 14.8cqw; height: auto; display: block; max-width: none; }
+.cert-org .addr { font-size: 1.22cqw; line-height: 1.55; }
+.cert-org .addr b { display: block; font-weight: 700; letter-spacing: .02em; }
+.cert-id { display: flex; align-items: flex-end; gap: 1.7cqw; text-align: right; }
+.cert-id .qr { width: 8.9cqw; height: 8.9cqw; flex-shrink: 0; }
+.cert-id .qr img, .cert-id .qr canvas { width: 100% !important; height: 100% !important; }
+.cert-id .num { font-size: 1.86cqw; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cert-id .val { font-size: 1.29cqw; color: #6d7480; margin-top: .4cqw; white-space: nowrap; }
+.zoom-hint { display: none; font-size: 12.5px; color: var(--ink-3); text-align: center; margin-top: 10px; }
+
+/* email render */
+.mail { background: #eceef1; border-radius: 6px; padding: 16px; }
+.mail-meta { background: #fff; border-radius: 5px 5px 0 0; padding: 14px 18px; border-bottom: 1px solid #e3e6ea; font-size: 12.5px; color: #4a4f57; line-height: 1.85; overflow-wrap: anywhere; font-weight: 400; }
+.mail-meta b { color: #15171a; font-weight: 500; }
+.mail-doc { background: #fff; border-radius: 0 0 5px 5px; padding: 30px 26px; color: #15171a; text-align: center; font-weight: 400; }
+.mail-doc img.logo { width: 128px; height: auto; margin: 0 auto 22px; display: block; }
+.mail-doc h4 { font-family: var(--display); font-weight: 400; font-size: 23px; margin-bottom: 14px; color: #15171a; text-wrap: balance; }
+.mail-doc p { font-size: 14px; line-height: 1.75; color: #3d4149; max-width: 48ch; margin: 0 auto 13px; overflow-wrap: anywhere; }
+.mail-box { border: 1px dashed #299b82; border-radius: 8px; padding: 16px; margin: 20px auto; max-width: 320px; background: #f3faf8; }
+.mail-box .k { font-size: 10.5px; text-transform: uppercase; letter-spacing: .1em; color: #6d7480; }
+.mail-box .v { font-family: var(--display); font-size: 26px; color: #1f7a66; margin-top: 3px; font-variant-numeric: tabular-nums; }
+.mail-box .s { font-size: 12px; color: #6d7480; margin-top: 7px; }
+.mail-attach { display: inline-flex; align-items: center; gap: 9px; border: 1px solid #d8dce2; border-radius: 7px; padding: 10px 15px; font-size: 13px; color: #3d4149; margin-top: 6px; background: #fafbfc; }
+.mail-attach .pdf { background: #b4443f; color: #fff; font-size: 9px; font-weight: 700; padding: 3px 5px; border-radius: 3px; letter-spacing: .04em; }
+.mail-foot { border-top: 1px solid #e3e6ea; margin-top: 26px; padding-top: 16px; font-size: 11.5px; color: #8b919b; line-height: 1.7; }
+
+/* ───────────── scenario console ───────────── */
+.console-backdrop { position: fixed; inset: 0; background: rgba(4,8,9,.6); z-index: 69; }
+.console {
+  position: fixed; right: 14px; z-index: 70;
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  width: 276px; max-width: calc(100% - 28px);
+  background: var(--proto-bg); border: 1px solid var(--proto-line);
+  border-radius: 10px; box-shadow: 0 14px 38px rgba(0,0,0,.6);
+  font-size: 12.5px; overflow: hidden;
+}
+.console-head {
+  display: flex; align-items: center; gap: 8px; width: 100%;
+  padding: 11px 13px; cursor: pointer; background: none; border: none; text-align: left;
+  color: var(--proto-hi); font-family: var(--body); font-weight: 500; letter-spacing: .07em;
+  font-size: 10.5px; text-transform: uppercase;
+}
+.console-head .ch-sum {
+  margin-left: auto; color: var(--proto-ink); letter-spacing: .02em; text-transform: none;
+  font-size: 12px; font-weight: 400; white-space: nowrap;
+}
+.console-head .chev { color: var(--proto-ink); transition: transform .25s ease; font-size: 11px; }
+.console.closed .chev { transform: rotate(180deg); }
+.console.closed .console-body { display: none; }
+.console-body { padding: 2px 13px 13px; display: grid; gap: 13px; max-height: 64vh; overflow-y: auto; }
+.cgroup > p { color: var(--proto-ink); font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
+.cgroup .opts { display: grid; gap: 4px; }
+.cgroup .opts.two { grid-template-columns: 1fr 1fr; }
+.copt {
+  display: flex; align-items: center; gap: 8px; padding: 7px 9px; border-radius: 5px;
+  background: #1f232b; border: 1px solid transparent; cursor: pointer; color: #b9c0cc;
+  font-size: 12.5px; line-height: 1.3; text-align: left; font-family: var(--body); width: 100%; min-width: 0;
+}
+.copt small { display: block; font-size: 10.5px; opacity: .7; margin-top: 1px; }
+.copt:hover { border-color: var(--proto-line); color: #e3e7ed; }
+.copt.on { border-color: var(--proto-hi); color: var(--proto-hi); background: rgba(214,168,79,.09); }
+.copt .rad { width: 11px; height: 11px; border-radius: 50%; border: 1px solid #4a515d; flex-shrink: 0; }
+.copt.on .rad { border-color: var(--proto-hi); background: radial-gradient(circle, var(--proto-hi) 0 42%, transparent 44%); }
+.cjump { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.cjump .copt { justify-content: center; text-align: center; font-size: 11.5px; padding: 7px 5px; }
+.creset { width: 100%; padding: 8px; border-radius: 5px; background: transparent; border: 1px solid var(--proto-line); color: var(--proto-ink); cursor: pointer; font-size: 12px; font-family: var(--body); }
+.creset:hover { color: #e3e7ed; border-color: #49505c; }
+
+/* ───────────── phones ───────────── */
+@media (max-width: 768px) {
+  .shell { padding-block: 18px 96px; }
+  .stepper { gap: 8px; margin-bottom: 16px; }
+  .step .lbl { display: none; }
+  .step.on .lbl { display: inline; }
+  .step-sep { flex-basis: 10px; }
+
+  .card { padding: 26px 18px; }
+  .card.narrow { padding: 34px 20px; }
+  h1 { font-size: 27px; }
+  h2 { font-size: 24px; }
+  .lede { font-size: 15px; margin-bottom: 26px; }
+  .row2 { grid-template-columns: 1fr; gap: 0; }
+
+  .amounts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .amt, .amt.wide { min-width: 0; width: 100%; padding: 13px 8px; font-size: 16px; }
+
+  .switch-row { padding: 14px; }
+  .gift-panel { padding-left: 14px; }
+  .summary { padding: 16px; }
+  .sum-total { font-size: 19px; }
+  .sum-total b { font-size: 23px; }
+  .consents { gap: 14px; }
+  .cbx input { width: 21px; height: 21px; margin-top: 1px; }
+
+  .btn { font-size: 17px; padding: 15px 20px; width: 100%; }
+  .btn-row .btn { width: 100%; }
+  .status-msg { font-size: 16px; line-height: 1.65; }
+  .certno { padding: 14px 18px; }
+  .certno b { font-size: 25px; }
+  .chk { font-size: 15px; }
+
+  .bank-head { padding: 14px 18px; }
+  .bank-body { padding: 20px 18px; }
+  .bank-sim { padding: 14px 18px 16px; }
+
+  .overlay { padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0px)); }
+  .modal-head { padding: 12px 14px; }
+  .modal-body { padding: 14px; }
+  .x { width: 42px; height: 42px; }
+  .mail { padding: 8px; }
+  .mail-doc { padding: 24px 16px; }
+  .cert-zoom { cursor: zoom-in; }
+  .cert-zoom.zoomed { cursor: zoom-out; }
+  .cert-zoom.zoomed .cert-sheet { width: 230%; }
+  .zoom-hint { display: block; }
+
+  /* console becomes a bottom sheet */
+  .console {
+    left: 0; right: 0; bottom: 0; width: auto; max-width: none;
+    border-radius: 14px 14px 0 0; border-width: 1px 0 0;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    box-shadow: 0 -10px 30px rgba(0,0,0,.55);
+  }
+  .console-head { padding: 15px 16px; font-size: 11px; }
+  .console-head .ch-sum { font-size: 13px; }
+  .console-body { padding: 2px 16px 16px; gap: 15px; max-height: min(66vh, 560px); }
+  .copt { min-height: 44px; font-size: 13.5px; padding: 8px 11px; }
+  .cjump { grid-template-columns: 1fr 1fr 1fr; }
+  .cjump .copt { font-size: 12.5px; padding: 8px 4px; }
+  .creset { min-height: 44px; font-size: 13.5px; }
+}
+</style>
+<!--BODY-->
+<div class="proto-rail">
+  <div class="proto-rail-in">
+    <span class="proto-tag">Прототип</span>
+    <span>Оплата и выпуск сертификата имитируются: деньги не списываются, письма не уходят. Разные исходы включаются в панели «Сценарий демонстрации» внизу экрана.</span>
+  </div>
+</div>
+
+<div class="shell">
+
+  <div class="stepper" id="stepper" aria-label="Шаги оформления">
+    <div class="step on" data-step="1"><span class="dot">1</span><span class="lbl">Данные сертификата</span></div>
+    <div class="step-sep"></div>
+    <div class="step" data-step="2"><span class="dot">2</span><span class="lbl">Оплата</span></div>
+    <div class="step-sep"></div>
+    <div class="step" data-step="3"><span class="dot">3</span><span class="lbl">Сертификат на почте</span></div>
+  </div>
+
+  <!-- ══════════ 1. FORM ══════════ -->
+  <section id="s-form">
+    <div class="card">
+      <h1>Электронный подарочный сертификат</h1>
+      <p class="lede">Оформите за пару минут. Сертификат придёт на электронную почту сразу после оплаты и будет действовать год со дня покупки.</p>
+
+      <form id="certForm" novalidate>
+        <div class="field">
+          <label class="lab" for="amt1">Номинал</label>
+          <p class="note">Выберите номинал из предложенных или укажите свой.</p>
+          <div class="amounts" id="amounts">
+            <button type="button" class="amt" id="amt1" data-v="1000">1 000</button>
+            <button type="button" class="amt" data-v="2000">2 000</button>
+            <button type="button" class="amt" data-v="3000">3 000</button>
+            <button type="button" class="amt on" data-v="5000">5 000</button>
+            <button type="button" class="amt" data-v="10000">10 000</button>
+            <button type="button" class="amt wide" data-v="custom">Другой номинал</button>
+          </div>
+          <div class="custom-wrap" id="customWrap" hidden>
+            <div class="custom-in">
+              <input type="text" id="customAmt" inputmode="numeric" autocomplete="off" placeholder="например, 7 500" aria-label="Свой номинал в рублях">
+              <span class="cur">₽</span>
+            </div>
+            <span class="hint">От 1 000 ₽ до 100 000 ₽.</span>
+            <p class="err" id="customAmtErr" hidden></p>
+          </div>
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <label class="lab" for="fName">Имя<span class="req">*</span></label>
+            <input type="text" id="fName" placeholder="Иван" autocomplete="given-name">
+            <p class="err" id="fNameErr" hidden>Укажите имя</p>
+          </div>
+          <div class="field">
+            <label class="lab" for="lName">Фамилия<span class="req">*</span></label>
+            <input type="text" id="lName" placeholder="Петров" autocomplete="family-name">
+            <p class="err" id="lNameErr" hidden>Укажите фамилию</p>
+          </div>
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <label class="lab" for="fPhone">Телефон<span class="req">*</span></label>
+            <input type="tel" id="fPhone" placeholder="+7 999 123-45-67" autocomplete="tel">
+            <p class="err" id="fPhoneErr" hidden>Укажите номер полностью, 10 цифр после +7</p>
+          </div>
+          <div class="field">
+            <label class="lab" for="fMail">E-mail<span class="req">*</span></label>
+            <input type="email" id="fMail" placeholder="example@mail.ru" autocomplete="email">
+            <span class="hint">На этот адрес придёт сертификат. Проверьте его внимательно.</span>
+            <p class="fix" id="fMailFix" hidden>Возможно, вы имели в виду <b></b>?<button type="button" class="fixbtn" data-fix="fMail">Исправить</button></p>
+            <p class="err" id="fMailErr" hidden>Укажите корректный e-mail</p>
+          </div>
+        </div>
+
+        <label class="switch-row" for="giftToggle">
+          <span class="switch">
+            <input type="checkbox" id="giftToggle">
+            <span class="track"></span><span class="knob"></span>
+          </span>
+          <span class="switch-txt">Это подарок другому человеку
+            <span>Отправим сертификат на его почту и добавим ваше поздравление</span>
+          </span>
+        </label>
+
+        <div class="gift-panel" id="giftPanel" hidden>
+          <div class="row2">
+            <div class="field">
+              <label class="lab" for="rName">Имя получателя<span class="req">*</span></label>
+              <input type="text" id="rName" placeholder="Анна" autocomplete="off">
+              <p class="err" id="rNameErr" hidden>Укажите имя получателя</p>
+            </div>
+            <div class="field">
+              <label class="lab" for="rMail">E-mail получателя<span class="req">*</span></label>
+              <input type="email" id="rMail" placeholder="anna@mail.ru" autocomplete="off">
+              <p class="fix" id="rMailFix" hidden>Возможно, вы имели в виду <b></b>?<button type="button" class="fixbtn" data-fix="rMail">Исправить</button></p>
+              <p class="err" id="rMailErr" hidden>Укажите корректный e-mail</p>
+            </div>
+          </div>
+          <div class="field tight">
+            <label class="lab" for="rMsg">Поздравление</label>
+            <textarea id="rMsg" maxlength="200" placeholder="С днём рождения! Отдохни как следует."></textarea>
+            <div class="counter"><span id="msgCount">0</span>/200</div>
+          </div>
+        </div>
+
+        <div class="summary">
+          <div class="sum-line"><span>Электронный сертификат</span><b class="nw" id="sumNominal">5 000 ₽</b></div>
+          <div class="sum-line"><span>Кому отправим</span><b id="sumTo">вам на почту</b></div>
+          <div class="sum-line"><span>Действует до</span><b class="nw" id="sumValid">—</b></div>
+          <div class="sum-line sum-total"><span>К оплате</span><b class="nw" id="sumTotal">5 000 ₽</b></div>
+        </div>
+
+        <div class="consents">
+          <div class="cbx" id="c1w">
+            <input type="checkbox" id="c1">
+            <label for="c1">Я принимаю <a href="https://docs.google.com/document/d/1NOKf0V-Ttsk1wKtymY8rkHCW_7LmiCt_/edit" target="_blank" rel="noopener">Политику конфиденциальности</a></label>
+          </div>
+          <div class="cbx" id="c2w">
+            <input type="checkbox" id="c2">
+            <label for="c2">Я даю <a href="https://docs.google.com/document/d/1Mr8D-DjD0wkICZP0fHnurA2WLKRtS4AU/edit" target="_blank" rel="noopener">Согласие на обработку персональных данных</a></label>
+          </div>
+          <div class="cbx" id="c3w">
+            <input type="checkbox" id="c3">
+            <label for="c3">Я согласен с <a href="https://drive.google.com/file/d/16qliyCoWDlZfZUF12ArqXuZoaxL7lGZq/view" target="_blank" rel="noopener">условиями публичной оферты</a></label>
+          </div>
+          <p class="err" id="consErr" hidden style="margin-top:0">Отметьте все три пункта, чтобы перейти к оплате</p>
+        </div>
+
+        <div class="pay-row">
+          <button type="submit" class="btn" id="payBtn">Перейти к оплате · 5 000 ₽</button>
+        </div>
+        <p class="note" style="text-align:center;color:var(--ink-3);font-size:13.5px;margin:0">
+          Оплата картой через Т-Банк. Сертификат придёт на почту сразу после оплаты.
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ══════════ 2. HANDOFF ══════════ -->
+  <section id="s-redirect" hidden>
+    <div class="card narrow">
+      <div class="spinner"></div>
+      <h2>Переходим на страницу оплаты</h2>
+      <p class="status-msg" style="margin-top:14px;margin-bottom:0">Заказ <strong id="redirOrder">—</strong> создан. Открываем защищённую страницу Т-Банка.</p>
+    </div>
+  </section>
+
+  <!-- ══════════ 3. BANK ══════════ -->
+  <section id="s-bank" hidden>
+    <div class="bank">
+      <div class="bank-head">
+        <span class="bank-brand">Т-Банк · Интернет-эквайринг</span>
+        <span class="bank-secure">🔒 Защищённое соединение</span>
+      </div>
+      <div class="bank-body">
+        <div class="bank-amt">
+          <div class="v" id="bankAmt">5 000 ₽</div>
+          <div class="m">ООО «Термополис» · заказ <span id="bankOrder">—</span></div>
+        </div>
+        <div class="bank-f">
+          <span class="l">Номер карты</span>
+          <div class="box">0000 0000 0000 0000</div>
+        </div>
+        <div class="bank-g">
+          <div class="bank-f">
+            <span class="l">Срок действия</span>
+            <div class="box">ММ / ГГ</div>
+          </div>
+          <div class="bank-f">
+            <span class="l">CVC</span>
+            <div class="box">•••</div>
+          </div>
+        </div>
+        <div class="bank-f">
+          <span class="l">E-mail для чека</span>
+          <div class="box" id="bankMail">example@mail.ru</div>
+        </div>
+        <p class="bank-note">Чек по 54-ФЗ придёт на указанную почту.<br>Это страница банка, а не сайта HWOYA.</p>
+      </div>
+      <div class="bank-sim">
+        <p>Имитация: выберите исход</p>
+        <div class="btns">
+          <button type="button" class="bank-btn pay" id="bankPay">Оплатить <span id="bankPayAmt">5 000 ₽</span></button>
+          <button type="button" class="bank-btn decline" id="bankDecline">Платёж отклонён банком</button>
+          <button type="button" class="bank-btn back" data-goto="form">← Вернуться к форме</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 4. PROCESSING ══════════ -->
+  <section id="s-processing" hidden>
+    <div class="card narrow">
+      <h2>Оформляем сертификат</h2>
+      <p class="status-msg" style="margin:12px 0 28px">Не закрывайте страницу, это займёт несколько секунд.</p>
+      <div class="checklist" id="checklist" aria-live="polite">
+        <div class="chk" data-k="pay"><span class="mark"></span><span class="txt">Проверяем платёж</span></div>
+        <div class="chk" data-k="profile"><span class="mark"></span><span class="txt">Создаём профиль гостя</span></div>
+        <div class="chk" data-k="voucher"><span class="mark"></span><span class="txt">Выпускаем сертификат</span></div>
+        <div class="chk" data-k="mail"><span class="mark"></span><span class="txt">Отправляем письмо с сертификатом</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 5. SUCCESS ══════════ -->
+  <section id="s-success" hidden>
+    <div class="card narrow">
+      <div class="badge-ico ok">✓</div>
+      <h2>Сертификат успешно оформлен!</h2>
+      <p class="status-msg" style="margin-top:18px" id="okLine">Благодарим за оплату. Сертификат отправлен на указанный адрес электронной почты.</p>
+      <p class="status-msg">Если письмо не пришло в течение нескольких минут, проверьте папку «Спам» или свяжитесь с нами по телефону <a class="tel" href="tel:+73512251820">+7 (351) 225-18-20</a>.</p>
+      <div class="certno"><span>Номер сертификата</span><b id="okNum">—</b><small id="okMeta">—</small></div>
+      <div class="btn-row">
+        <button type="button" class="btn sm" id="viewCert">Посмотреть сертификат</button>
+        <button type="button" class="btn sm ghost" id="viewMail">Посмотреть письмо</button>
+      </div>
+      <button type="button" class="linkbtn" data-goto="form">Оформить ещё один сертификат</button>
+    </div>
+  </section>
+
+  <!-- ══════════ 6. PAYMENT FAILED ══════════ -->
+  <section id="s-failpay" hidden>
+    <div class="card narrow">
+      <div class="badge-ico no">✕</div>
+      <h2>Оплата не прошла</h2>
+      <p class="status-msg" style="margin-top:18px">
+        Банк отклонил платёж, деньги не списаны. Попробуйте оплатить ещё раз или воспользуйтесь другой картой.
+      </p>
+      <div class="btn-row">
+        <button type="button" class="btn sm" data-goto="bank">Попробовать снова</button>
+        <button type="button" class="btn sm ghost" data-goto="form">Изменить данные</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 7. VOUCHER FAILED ══════════ -->
+  <section id="s-failvoucher" hidden>
+    <div class="card narrow">
+      <div class="badge-ico no">✕</div>
+      <h2>Не удалось оформить сертификат</h2>
+
+      <div id="fvTwoStage" hidden>
+        <p class="status-msg" style="margin-top:18px">
+          При выпуске сертификата произошла техническая ошибка, поэтому оплата была отменена.
+        </p>
+        <div class="refund-note">
+          <b>Деньги не списаны.</b> Сумма была только заморожена на карте, и мы уже сняли блокировку. Обычно деньги снова доступны через несколько минут, точный срок зависит от вашего банка. Сертификат можно оформить заново.
+        </div>
+        <div class="btn-row"><button type="button" class="btn sm" data-goto="form">Оформить заново</button></div>
+        <div class="demo-note" style="margin:24px 0 0">
+          <span class="tag">Не видно гостю · что происходит на нашей стороне</span>
+          Двухстадийная оплата: банк сначала только блокирует сумму, а списывает её после успешного выпуска сертификата. При сбое блокировка снимается автоматически, звонить гостю не нужно. Заказ <b id="fvOrder2">—</b> сохраняется со статусом «Ошибка создания ваучера» для разбора.
+        </div>
+      </div>
+
+      <div id="fvOneStage" hidden>
+        <p class="status-msg" style="margin-top:18px">
+          К сожалению, оформление сертификата не удалось завершить. <strong>Пожалуйста, не оплачивайте сертификат повторно.</strong>
+        </p>
+        <p class="status-msg">
+          Для уточнения информации и оформления сертификата обратитесь, пожалуйста, по телефону <a class="tel" href="tel:+73512251820">+7 (351) 225-18-20</a>.
+        </p>
+        <div class="demo-note" style="margin-bottom:0">
+          <span class="tag">Не видно гостю · что происходит на нашей стороне</span>
+          Одностадийная оплата, как в ТЗ: деньги уже списаны. Заказ <b id="fvOrder">—</b> сохранён со статусом «Ошибка создания ваучера». Данные гостя ушли на info@hwoyaspa.ru, администратор перезванивает и оформляет сертификат вручную.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 8. MAIL FAILED ══════════ -->
+  <section id="s-failmail" hidden>
+    <div class="card narrow">
+      <div class="badge-ico ok">✓</div>
+      <h2>Сертификат оформлен</h2>
+      <p class="status-msg" style="margin-top:18px">
+        Оплата прошла, сертификат выпущен. Письмо отправить не удалось, мы уже разбираемся и пришлём его вручную.
+      </p>
+      <p class="status-msg">Номер ниже уже действует, его достаточно назвать на ресепшене.</p>
+      <div class="certno"><span>Номер сертификата</span><b id="mfNum">—</b><small id="mfMeta">—</small></div>
+      <div class="btn-row"><button type="button" class="btn sm" id="viewCert2">Посмотреть сертификат</button></div>
+      <div class="demo-note" style="margin:24px 0 0">
+        <span class="tag">Не видно гостю · что происходит на нашей стороне</span>
+        Заказ сохранён со статусом «Ошибка отправки сертификата», уведомление ушло на info@hwoyaspa.ru. Сам ваучер выпущен и действителен, повторная отправка делается одной кнопкой из админки.
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ══════════ certificate modal ══════════ -->
+<div class="overlay" id="certModal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="certModalTitle">
+    <div class="modal-head">
+      <h3 id="certModalTitle">Сертификат · PDF</h3>
+      <button type="button" class="x" data-close aria-label="Закрыть">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="cert-zoom" id="certZoom">
+        <div class="cert-sheet">
+          <div class="cert-page cert-front"><img src="__FRONT__" alt="Лицевая сторона сертификата HWOYA Philosophy"></div>
+          <div class="cert-page">
+            <div class="cert-back">
+              <div class="hello">Добро пожаловать в HWOYA Philosophy!</div>
+              <div class="body">
+                Данный сертификат на сумму <b id="cbAmt">5 000</b> рублей даёт право на посещение<br>
+                и пользование услугами термального комплекса.
+              </div>
+              <div class="gift-msg" id="cbMsg" hidden></div>
+              <div class="cert-foot">
+                <div class="cert-org">
+                  <img src="__LOGO__" alt="HWOYA Philosophy">
+                  <div class="addr">
+                    <b>ТЕРМАЛЬНЫЙ СПА-КОМПЛЕКС</b>
+                    г. Челябинск, ул. Лесопарковая, 9а<br>
+                    тел.: +7 (351) 225-18-20 · hwoyaspa.ru
+                  </div>
+                </div>
+                <div class="cert-id">
+                  <div class="qr" id="certQr"></div>
+                  <div>
+                    <div class="num" id="cbNum">№ —</div>
+                    <div class="val">действителен до <span id="cbValid">—</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="zoom-hint" id="zoomHint">Нажмите на сертификат, чтобы увеличить</p>
+      <div class="demo-note" style="margin:16px 0 0">
+        <span class="tag">Пояснение к прототипу</span>
+        Две страницы PDF: лицевая с иллюстрацией и оборот с номиналом, номером, QR-кодом и сроком действия. Номер подставляется после выпуска ваучера в TNG. В QR зашиты только цифры номера: букву «Э» многие сканеры читают ненадёжно, формат кода нужно согласовать с TNG.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ email modal ══════════ -->
+<div class="overlay" id="mailModal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mailModalTitle">
+    <div class="modal-head">
+      <h3 id="mailModalTitle">Письмо с сертификатом</h3>
+      <button type="button" class="x" data-close aria-label="Закрыть">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="mail">
+        <div class="mail-meta">
+          <div><b>От:</b> HWOYA Philosophy &lt;noreply@hwoyaspa.ru&gt;</div>
+          <div><b>Кому:</b> <span id="mlTo">—</span></div>
+          <div><b>Тема:</b> <span id="mlSubj">Ваш подарочный сертификат HWOYA Philosophy</span></div>
+        </div>
+        <div class="mail-doc">
+          <img class="logo" src="__LOGO__" alt="HWOYA Philosophy">
+          <h4 id="mlHead">Ваш сертификат готов</h4>
+          <p id="mlIntro">—</p>
+          <div class="mail-box">
+            <div class="k">Номер сертификата</div>
+            <div class="v" id="mlNum">—</div>
+            <div class="s">Номинал <span id="mlAmt">—</span> · действителен до <span id="mlValid">—</span></div>
+          </div>
+          <p>Назовите номер на ресепшене или покажите QR-код из вложения. Сертификатом можно пользоваться несколько раз, пока не израсходован номинал.</p>
+          <div class="mail-attach"><span class="pdf">PDF</span><span>Сертификат <span id="mlFile">—</span>.pdf</span></div>
+          <div class="mail-foot">
+            Термальный спа-комплекс HWOYA Philosophy<br>
+            г. Челябинск, ул. Лесопарковая, 9а · +7 (351) 225-18-20<br>
+            Запись на процедуры по телефону. Условия использования указаны в публичной оферте на hwoyaspa.ru
+          </div>
+        </div>
+      </div>
+      <div class="demo-note" style="margin:16px 0 0">
+        <span class="tag">Пояснение к прототипу</span>
+        <span id="mlNote">Письмо и PDF формирует наш сервис, поэтому вёрстку и текст можно менять без участия TNG.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ scenario console ══════════ -->
+<div class="console-backdrop" id="consoleBackdrop" hidden></div>
+<div class="console" id="console">
+  <button type="button" class="console-head" id="consoleHead" aria-expanded="true" aria-controls="consoleBody">
+    <span>Сценарий демонстрации</span>
+    <span class="ch-sum" id="consoleSum">успех</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </button>
+  <div class="console-body" id="consoleBody">
+    <div class="cgroup">
+      <p>Что произойдёт после оплаты</p>
+      <div class="opts" id="optOutcome">
+        <button type="button" class="copt on" data-v="ok"><span class="rad"></span>Всё проходит успешно</button>
+        <button type="button" class="copt" data-v="voucher"><span class="rad"></span>Сбой при выпуске сертификата</button>
+        <button type="button" class="copt" data-v="mail"><span class="rad"></span>Сбой отправки письма</button>
+      </div>
+    </div>
+    <div class="cgroup">
+      <p>Режим оплаты</p>
+      <div class="opts two" id="optMode">
+        <button type="button" class="copt" data-v="one"><span class="rad"></span><span>Одна стадия<small>как в ТЗ</small></span></button>
+        <button type="button" class="copt on" data-v="two"><span class="rad"></span><span>Две стадии<small>рекомендуем</small></span></button>
+      </div>
+    </div>
+    <div class="cgroup">
+      <p>Профиль гостя</p>
+      <div class="opts two" id="optGuest">
+        <button type="button" class="copt on" data-v="new"><span class="rad"></span>Новый гость</button>
+        <button type="button" class="copt" data-v="old"><span class="rad"></span>Уже в базе</button>
+      </div>
+    </div>
+    <div class="cgroup">
+      <p>Перейти к экрану</p>
+      <div class="cjump" id="optJump">
+        <button type="button" class="copt" data-goto="form">Форма</button>
+        <button type="button" class="copt" data-goto="bank">Оплата</button>
+        <button type="button" class="copt" data-goto="success">Успех</button>
+        <button type="button" class="copt" data-goto="failpay">Отказ оплаты</button>
+        <button type="button" class="copt" data-goto="failvoucher">Сбой выпуска</button>
+        <button type="button" class="copt" data-goto="failmail">Сбой письма</button>
+      </div>
+    </div>
+    <button type="button" class="creset" id="resetBtn">Начать сначала</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var $ = function (id) { return document.getElementById(id); };
+  var all = function (sel, root) { return [].slice.call((root || document).querySelectorAll(sel)); };
+  var val = function (id) { return ($(id).value || '').trim(); };
+  var num = function (n) { return n.toLocaleString('ru-RU').replace(/[  ]/g, ' '); };
+  var money = function (n) { return num(n) + ' ₽'; };
+
+  var MIN = 1000, MAX = 100000;
+  var mobile = window.matchMedia('(max-width: 768px)');
+  var calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  var state = {
+    amount: 5000, outcome: 'ok', mode: 'two', guest: 'new',
+    order: null, certNum: null, screen: 'form'
+  };
+
+  function validTill() {
+    var d = new Date();
+    d.setFullYear(d.getFullYear() + 1);
+    return d.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  }
+  function newOrder() {
+    return 'HW-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random() * 9000) + 1000);
+  }
+  function newCertNum() {
+    return 'Э' + String(Math.floor(Math.random() * 900000) + 100000);
+  }
+  /* text with bold fragments, built from nodes so typed-in values are never parsed as HTML */
+  function rich(el, parts) {
+    el.textContent = '';
+    parts.forEach(function (p) {
+      if (typeof p === 'string') { el.appendChild(document.createTextNode(p)); return; }
+      var s = document.createElement('strong');
+      s.textContent = p.b;
+      el.appendChild(s);
+    });
+  }
+
+  /* ---------- screens ---------- */
+  var screens = {
+    form: 's-form', redirect: 's-redirect', bank: 's-bank', processing: 's-processing',
+    success: 's-success', failpay: 's-failpay', failvoucher: 's-failvoucher', failmail: 's-failmail'
+  };
+  var stepOf = {
+    form: 1, redirect: 2, bank: 2, processing: 2,
+    success: 3, failpay: 2, failvoucher: 2, failmail: 3
+  };
+  /* screens that get a history entry, so the phone's Back button walks the flow */
+  var routable = { form: 1, bank: 1, success: 1, failpay: 1, failvoucher: 1, failmail: 1 };
+
+  var timers = [];
+  function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+  function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+
+  function show(name, silent) {
+    clearTimers();
+    closeModals();
+    state.screen = name;
+    Object.keys(screens).forEach(function (k) { $(screens[k]).hidden = (k !== name); });
+    var cur = stepOf[name];
+    all('#stepper .step').forEach(function (el) {
+      var n = +el.dataset.step;
+      el.classList.toggle('on', n === cur);
+      el.classList.toggle('done', n < cur);
+    });
+    window.scrollTo({ top: 0, behavior: calm.matches ? 'auto' : 'smooth' });
+    if (!silent && routable[name]) {
+      try {
+        if (location.hash !== '#' + name) history.pushState(null, '', '#' + name);
+      } catch (e) { /* sandboxed frames may refuse; the flow still works */ }
+    }
+  }
+
+  /* fill a screen's dynamic bits, whether reached through the flow or by a console jump */
+  function prep(name) {
+    if (!state.order) state.order = newOrder();
+    var a = currentAmount();
+    if (a >= MIN && a <= MAX) state.amount = a;
+
+    if (name === 'bank' || name === 'redirect') {
+      $('redirOrder').textContent = state.order;
+      $('bankOrder').textContent = state.order;
+      $('bankAmt').textContent = money(state.amount);
+      $('bankPayAmt').textContent = money(state.amount);
+      $('bankMail').textContent = val('fMail') || 'example@mail.ru';
+    }
+    if (name === 'success' || name === 'failmail') {
+      if (!state.certNum) state.certNum = newCertNum();
+      var meta = 'Номинал ' + money(state.amount) + ' · действует до ' + validTill();
+      $('okNum').textContent = state.certNum;
+      $('mfNum').textContent = state.certNum;
+      $('okMeta').textContent = meta;
+      $('mfMeta').textContent = meta;
+      var to = recipientMail() || 'example@mail.ru';
+      var me = val('fMail') || 'example@mail.ru';
+      rich($('okLine'), isGift()
+        ? ['Благодарим за оплату. Сертификат отправлен получателю на ', { b: to }, ', а подтверждение покупки пришло вам на ', { b: me }, '.']
+        : ['Благодарим за оплату. Сертификат отправлен на ', { b: to }, '.']);
+    }
+    if (name === 'failvoucher') fillFailVoucher();
+  }
+  function fillFailVoucher() {
+    $('fvOrder').textContent = state.order || '—';
+    $('fvOrder2').textContent = state.order || '—';
+    $('fvTwoStage').hidden = state.mode !== 'two';
+    $('fvOneStage').hidden = state.mode === 'two';
+  }
+  function goTo(name, silent) { prep(name); show(name, silent); }
+
+  /* ---------- amount ---------- */
+  var customMode = false;
+
+  function currentAmount() {
+    if (!customMode) return state.amount;
+    var raw = ($('customAmt').value || '').replace(/[^\d]/g, '');
+    return raw ? parseInt(raw, 10) : 0;
+  }
+  function isGift() { return $('giftToggle').checked; }
+  function recipientMail() { return isGift() ? val('rMail') : val('fMail'); }
+  function recipientName() { return isGift() ? val('rName') : val('fName'); }
+
+  function refresh() {
+    var a = currentAmount();
+    var ok = a >= MIN && a <= MAX;
+    $('sumNominal').textContent = ok ? money(a) : '—';
+    $('sumTotal').textContent = ok ? money(a) : '—';
+    $('sumValid').textContent = validTill();
+    $('payBtn').textContent = ok ? 'Перейти к оплате · ' + money(a) : 'Перейти к оплате';
+
+    /* show the real address in the summary: last chance to spot a typo before paying */
+    var mail = recipientMail(), rn = val('rName'), to;
+    if (isGift()) to = (rn && mail) ? rn + ' · ' + mail : (mail || rn || 'получателю на почту');
+    else to = mail || 'вам на почту';
+    $('sumTo').textContent = to;
+  }
+
+  all('#amounts .amt').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      all('#amounts .amt').forEach(function (b) { b.classList.remove('on'); });
+      btn.classList.add('on');
+      if (btn.dataset.v === 'custom') {
+        customMode = true;
+        $('customWrap').hidden = false;
+        $('customAmt').focus();
+      } else {
+        customMode = false;
+        $('customWrap').hidden = true;
+        mark('customAmt', false);
+        state.amount = parseInt(btn.dataset.v, 10);
+      }
+      refresh();
+    });
+  });
+
+  $('customAmt').addEventListener('input', function () {
+    var raw = this.value.replace(/[^\d]/g, '').slice(0, 7);
+    this.value = raw ? num(parseInt(raw, 10)) : '';
+    mark('customAmt', false);
+    refresh();
+  });
+  $('customAmt').addEventListener('blur', function () {
+    if (this.value) checkCustom();
+  });
+  function checkCustom() {
+    var a = currentAmount();
+    var msg = !a ? 'Укажите номинал'
+      : a < MIN ? 'Минимальный номинал: 1 000 ₽'
+      : a > MAX ? 'Максимальный номинал: 100 000 ₽' : '';
+    return mark('customAmt', !!msg, msg);
+  }
+
+  /* ---------- phone mask: +7 999 123-45-67 ---------- */
+  function fmtPhone(d) {
+    if (!d) return '';
+    if (d[0] === '8') d = '7' + d.slice(1);
+    if (d[0] !== '7') d = '7' + d;
+    d = d.slice(0, 11);
+    var o = '+7';
+    if (d.length > 1) o += ' ' + d.slice(1, 4);
+    if (d.length > 4) o += ' ' + d.slice(4, 7);
+    if (d.length > 7) o += '-' + d.slice(7, 9);
+    if (d.length > 9) o += '-' + d.slice(9, 11);
+    return o;
+  }
+  var lastPhone = '';
+  $('fPhone').addEventListener('input', function (e) {
+    var d = this.value.replace(/\D/g, '');
+    var deleting = e.inputType && e.inputType.indexOf('delete') === 0;
+    /* backspacing over a separator would otherwise restore it and trap the caret */
+    if (deleting && fmtPhone(d) === lastPhone) d = d.slice(0, -1);
+    if (deleting && d.length <= 1) d = '';
+    this.value = lastPhone = fmtPhone(d);
+    mark('fPhone', false);
+  });
+
+  /* ---------- e-mail typo catcher ---------- */
+  var domFix = {
+    'gmial.com': 'gmail.com', 'gmai.com': 'gmail.com', 'gamil.com': 'gmail.com', 'gnail.com': 'gmail.com',
+    'gmail.con': 'gmail.com', 'gmail.co': 'gmail.com', 'gmail.cm': 'gmail.com',
+    'mail.ri': 'mail.ru', 'mail.tu': 'mail.ru', 'mail.ry': 'mail.ru', 'mail.rj': 'mail.ru',
+    'mial.ru': 'mail.ru', 'maill.ru': 'mail.ru', 'mai.ru': 'mail.ru', 'mail.ur': 'mail.ru',
+    'yandex.ri': 'yandex.ru', 'yandex.tu': 'yandex.ru', 'yandx.ru': 'yandex.ru', 'yadnex.ru': 'yandex.ru',
+    'yanex.ru': 'yandex.ru', 'ya.ri': 'ya.ru', 'bk.ri': 'bk.ru', 'inbox.ri': 'inbox.ru', 'list.ri': 'list.ru',
+    'icloud.con': 'icloud.com', 'outlook.con': 'outlook.com', 'rambler.ri': 'rambler.ru'
+  };
+  function suggest(id) {
+    var v = val(id), at = v.lastIndexOf('@'), box = $(id + 'Fix');
+    var fix = at > 0 ? domFix[v.slice(at + 1).toLowerCase()] : null;
+    box.hidden = !fix;
+    if (fix) box.querySelector('b').textContent = v.slice(0, at + 1) + fix;
+  }
+  ['fMail', 'rMail'].forEach(function (id) {
+    $(id).addEventListener('input', function () { mark(id, false); suggest(id); refresh(); });
+    $(id).addEventListener('blur', function () { suggest(id); });
+  });
+  all('.fixbtn').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var id = b.dataset.fix;
+      $(id).value = $(id + 'Fix').querySelector('b').textContent;
+      $(id + 'Fix').hidden = true;
+      mark(id, false);
+      refresh();
+    });
+  });
+
+  /* ---------- gift ---------- */
+  $('giftToggle').addEventListener('change', function () {
+    $('giftPanel').hidden = !this.checked;
+    refresh();
+  });
+  $('rMsg').addEventListener('input', function () { $('msgCount').textContent = this.value.length; });
+
+  /* ---------- validation ---------- */
+  function mark(id, bad, msg) {
+    var f = $(id), e = $(id + 'Err');
+    if (f) { f.classList.toggle('bad', bad); f.setAttribute('aria-invalid', String(bad)); }
+    if (e) { e.hidden = !bad; if (bad && msg) e.textContent = msg; }
+    return !bad;
+  }
+  var mailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+  function validate() {
+    var ok = true;
+    function need(id, bad) { if (!mark(id, bad)) ok = false; }
+    need('fName', !val('fName'));
+    need('lName', !val('lName'));
+    need('fPhone', val('fPhone').replace(/\D/g, '').length !== 11);
+    need('fMail', !mailRe.test(val('fMail')));
+    if (customMode && !checkCustom()) ok = false;
+    if (isGift()) {
+      need('rName', !val('rName'));
+      need('rMail', !mailRe.test(val('rMail')));
+    }
+    var consBad = false;
+    ['c1', 'c2', 'c3'].forEach(function (c) {
+      var bad = !$(c).checked;
+      $(c + 'w').classList.toggle('bad', bad);
+      if (bad) consBad = true;
+    });
+    $('consErr').hidden = !consBad;
+    return ok && !consBad;
+  }
+
+  ['fName', 'lName', 'rName'].forEach(function (id) {
+    $(id).addEventListener('input', function () { mark(id, false); if (id === 'rName') refresh(); });
+  });
+  ['c1', 'c2', 'c3'].forEach(function (c) {
+    $(c).addEventListener('change', function () {
+      $(c + 'w').classList.remove('bad');
+      if ($('c1').checked && $('c2').checked && $('c3').checked) $('consErr').hidden = true;
+    });
+  });
+
+  /* ---------- submit ---------- */
+  $('certForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!validate()) {
+      var bad = document.querySelector('#certForm .bad');
+      if (bad) bad.scrollIntoView({ behavior: calm.matches ? 'auto' : 'smooth', block: 'center' });
+      return;
+    }
+    state.order = newOrder();
+    state.certNum = null;
+    prep('bank');
+    show('redirect');
+    later(function () { show('bank'); }, 1300);
+  });
+
+  /* ---------- bank ---------- */
+  $('bankPay').addEventListener('click', function () { show('processing'); runProcessing(); });
+  $('bankDecline').addEventListener('click', function () { goTo('failpay'); });
+
+  /* ---------- processing ---------- */
+  var chkCopy = {
+    pay:     ['Проверяем платёж', 'Платёж подтверждён банком'],
+    voucher: ['Выпускаем сертификат', 'Сертификат выпущен', 'Не удалось выпустить сертификат'],
+    mail:    ['Отправляем письмо с сертификатом', 'Письмо отправлено', 'Не удалось отправить письмо'],
+    profile: {
+      'new': ['Создаём профиль гостя', 'Профиль гостя создан'],
+      'old': ['Ищем ваш профиль гостя', 'Нашли ваш профиль гостя']
+    }
+  };
+  function setChk(k, cls) {
+    var el = document.querySelector('.chk[data-k="' + k + '"]');
+    var c = k === 'profile' ? chkCopy.profile[state.guest] : chkCopy[k];
+    el.classList.remove('run', 'ok', 'no');
+    if (cls) el.classList.add(cls);
+    el.querySelector('.mark').textContent = cls === 'ok' ? '✓' : cls === 'no' ? '✕' : '';
+    el.querySelector('.txt').textContent = cls === 'ok' ? c[1] : cls === 'no' ? (c[2] || c[0]) : c[0];
+  }
+
+  function runProcessing() {
+    ['pay', 'profile', 'voucher', 'mail'].forEach(function (k) { setChk(k, null); });
+
+    var steps = [
+      function () { setChk('pay', 'run'); },
+      function () { setChk('pay', 'ok'); setChk('profile', 'run'); },
+      function () { setChk('profile', 'ok'); setChk('voucher', 'run'); }
+    ];
+    if (state.outcome === 'voucher') {
+      steps.push(function () { setChk('voucher', 'no'); });
+      steps.push(function () { goTo('failvoucher'); });
+    } else {
+      steps.push(function () {
+        state.certNum = newCertNum();
+        setChk('voucher', 'ok');
+        setChk('mail', 'run');
+      });
+      if (state.outcome === 'mail') {
+        steps.push(function () { setChk('mail', 'no'); });
+        steps.push(function () { goTo('failmail'); });
+      } else {
+        steps.push(function () { setChk('mail', 'ok'); });
+        steps.push(function () { goTo('success'); });
+      }
+    }
+    steps.forEach(function (fn, i) { later(fn, 250 + i * 850); });
+  }
+
+  /* ---------- certificate + email views ---------- */
+  function fillCert() {
+    if (!state.certNum) state.certNum = newCertNum();
+    var n = state.certNum;
+    $('cbAmt').textContent = num(state.amount);
+    $('cbNum').textContent = '№ ' + n;
+    $('cbValid').textContent = validTill();
+    var msg = val('rMsg');
+    $('cbMsg').hidden = !(isGift() && msg);
+    $('cbMsg').textContent = msg ? '«' + msg + '»' : '';
+
+    var box = $('certQr');
+    box.textContent = '';
+    box.removeAttribute('style');
+    if (window.QRCode) {
+      try {
+        /* digits only: the library fails on Cyrillic, and so do many desk scanners */
+        new QRCode(box, { text: n.replace(/[^ -~]/g, ''), width: 160, height: 160, correctLevel: QRCode.CorrectLevel.M });
+        return;
+      } catch (err) { /* fall through to the placeholder */ }
+    }
+    box.style.cssText = 'border:1px solid #d8dce2;display:grid;place-items:center;font-size:1.3cqw;color:#8b919b';
+    box.textContent = 'QR';
+  }
+  function fillMail() {
+    if (!state.certNum) state.certNum = newCertNum();
+    var n = state.certNum;
+    $('mlTo').textContent = recipientMail() || 'example@mail.ru';
+    $('mlNum').textContent = n;
+    $('mlAmt').textContent = money(state.amount);
+    $('mlValid').textContent = validTill();
+    $('mlFile').textContent = n;
+    var who = recipientName() || 'Гость';
+    var buyer = val('fName') || 'Покупатель';
+    if (isGift()) {
+      var msg = val('rMsg');
+      $('mlSubj').textContent = 'Вам подарили сертификат HWOYA Philosophy';
+      $('mlHead').textContent = who + ', вам подарок!';
+      $('mlIntro').textContent = buyer + ' дарит вам сертификат в термальный спа-комплекс HWOYA Philosophy'
+        + (msg ? '. «' + msg + '»' : '.');
+      $('mlNote').textContent = 'Это письмо получателю подарка. Покупатель получает отдельное письмо с подтверждением покупки и копией сертификата. Оба письма и PDF формирует наш сервис, поэтому вёрстку и текст можно менять без участия TNG.';
+    } else {
+      $('mlSubj').textContent = 'Ваш подарочный сертификат HWOYA Philosophy';
+      $('mlHead').textContent = 'Ваш сертификат готов';
+      $('mlIntro').textContent = who + ', спасибо за покупку. Сертификат во вложении, номер продублирован ниже.';
+      $('mlNote').textContent = 'Письмо и PDF формирует наш сервис, поэтому вёрстку и текст можно менять без участия TNG.';
+    }
+  }
+
+  function openModal(el) {
+    el.hidden = false;
+    el.scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+    $('console').hidden = true;
+    $('consoleBackdrop').hidden = true;
+    var x = el.querySelector('[data-close]');
+    if (x) x.focus();
+  }
+  function closeModals() {
+    $('certModal').hidden = true;
+    $('mailModal').hidden = true;
+    $('certZoom').classList.remove('zoomed');
+    $('zoomHint').textContent = 'Нажмите на сертификат, чтобы увеличить';
+    document.body.style.overflow = '';
+    $('console').hidden = false;
+    syncBackdrop();
+  }
+  $('viewCert').addEventListener('click', function () { fillCert(); openModal($('certModal')); });
+  $('viewCert2').addEventListener('click', function () { fillCert(); openModal($('certModal')); });
+  $('viewMail').addEventListener('click', function () { fillMail(); openModal($('mailModal')); });
+  all('[data-close]').forEach(function (b) { b.addEventListener('click', closeModals); });
+  all('.overlay').forEach(function (o) {
+    o.addEventListener('click', function (e) { if (e.target === o) closeModals(); });
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModals(); });
+
+  /* phones: tap the sheet to read it at 2.3x, pan sideways, tap again to fit */
+  $('certZoom').addEventListener('click', function () {
+    if (!mobile.matches) return;
+    var z = this.classList.toggle('zoomed');
+    $('zoomHint').textContent = z
+      ? 'Листайте в стороны. Нажмите ещё раз, чтобы уменьшить'
+      : 'Нажмите на сертификат, чтобы увеличить';
+    if (!z) this.scrollLeft = 0;
+  });
+
+  /* ---------- console ---------- */
+  var sumCopy = { ok: 'успех', voucher: 'сбой выпуска', mail: 'сбой письма' };
+  function consoleOpen() { return !$('console').classList.contains('closed'); }
+  function syncBackdrop() { $('consoleBackdrop').hidden = !(consoleOpen() && mobile.matches); }
+  function setConsole(open) {
+    $('console').classList.toggle('closed', !open);
+    $('consoleHead').setAttribute('aria-expanded', String(open));
+    syncBackdrop();
+  }
+  $('consoleHead').addEventListener('click', function () { setConsole(!consoleOpen()); });
+  $('consoleBackdrop').addEventListener('click', function () { setConsole(false); });
+  if (mobile.addEventListener) mobile.addEventListener('change', syncBackdrop);
+
+  function wireGroup(wrapId, key) {
+    var wrap = $(wrapId);
+    wrap.addEventListener('click', function (e) {
+      var b = e.target.closest('.copt');
+      if (!b) return;
+      all('.copt', wrap).forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on');
+      state[key] = b.dataset.v;
+      $('consoleSum').textContent = sumCopy[state.outcome];
+      /* the two failure texts differ by payment mode: flip it live if that screen is up */
+      if (key === 'mode' && state.screen === 'failvoucher') fillFailVoucher();
+    });
+  }
+  wireGroup('optOutcome', 'outcome');
+  wireGroup('optMode', 'mode');
+  wireGroup('optGuest', 'guest');
+
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-goto]');
+    if (!b) return;
+    goTo(b.dataset.goto);
+    if (mobile.matches) setConsole(false);
+  });
+
+  $('resetBtn').addEventListener('click', function () {
+    state.order = null;
+    state.certNum = null;
+    show('form');
+    if (mobile.matches) setConsole(false);
+  });
+
+  /* ---------- history: Back/Forward and #screen links ---------- */
+  window.addEventListener('popstate', function () {
+    var h = (location.hash || '').slice(1);
+    goTo(routable[h] ? h : 'form', true);
+  });
+
+  /* ---------- starting state ---------- */
+  /* Example buyer so the first frame looks like a real order. The three consents
+     stay unticked on purpose: consent has to be the guest's own action. */
+  $('fName').value = 'Иван';
+  $('lName').value = 'Петров';
+  $('fPhone').value = lastPhone = '+7 912 345-67-89';
+  $('fMail').value = 'i.petrov@mail.ru';
+  refresh();
+  setConsole(!mobile.matches);
+
+  var first = (location.hash || '').slice(1);
+  if (routable[first] && first !== 'form') goTo(first, true);
+})();
+</script>
